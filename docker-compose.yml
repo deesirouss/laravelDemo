@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: travellistv2
+    image: travellist
     container_name: travellist-app
     restart: unless-stopped
     working_dir: /var/www/
