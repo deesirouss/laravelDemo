@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/ 
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
@@ -21,8 +20,6 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
  
-COPY . /var/www
+WORKDIR /var/www
  
-RUN chmod -R 777 storage/ bootstrap/
-
 EXPOSE 8000
