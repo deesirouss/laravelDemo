@@ -8,7 +8,8 @@
  */
 
 define('LARAVEL_START', microtime(true));
-
+echo " <h2>Containerization of LaravelDemo Project</h2> ";
+echo " <h4>Welcome DevOps Team !!!</h4> ";
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
