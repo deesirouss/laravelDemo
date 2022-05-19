@@ -31,7 +31,7 @@ jobs:
             # TODO Change to your username
             EC2_USERNAME=ubuntu
             # TODO Change to your server's URL or public IP
-            EC2_PUBLIC_DNS=application-server.example.com
+            EC2_PUBLIC_DNS=ec2-54-176-69-77.us-west-1.compute.amazonaws.com
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
             # other commands
             # TODO Perform steps to deploy
