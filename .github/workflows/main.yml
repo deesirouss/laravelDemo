@@ -24,11 +24,10 @@ jobs:
       - name: Deploy to my EC2 instance
         uses: appleboy/ssh-action@v0.0.9
         with:
-          host: 54.176.106.254
-          username: ubuntu
+          host: "ec2-54-176-106-254.us-west-1.compute.amazonaws.com"
+          username: "ubuntu"
           key: ${{ secrets.SSHKEY }}       
-          port: 22
-          passphrase: ""
+          port: "22"
           script: |
             echo Start deploy
             cd ~/laravelDemo/
