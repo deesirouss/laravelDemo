@@ -21,8 +21,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       - name: Deploy to my EC2 instance
-        uses: appleboy/ssh-action@v0.0.9
+        uses: appleboy/ssh-action@master
         with:
           host: "ec2-54-176-106-254.us-west-1.compute.amazonaws.com"
           username: "ubuntu"
