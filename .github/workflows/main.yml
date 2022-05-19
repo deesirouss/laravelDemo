@@ -32,13 +32,12 @@ jobs:
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
-
       - name: deploy Laravel
-        shell: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.KNOWN_HOSTS }} \
-          "echo Start deploy && \
-          cd ~/laravelDemo/ && \
-          git pull && \
-          cp .env.example .env && \
-          sudo docker compose up --build -d && \
-          echo Deploy end"
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.KNOWN_HOSTS }}
+          echo Start deploy
+          cd ~/laravelDemo/
+          git pull origin master
+          cp .env.example .env
+          sudo docker compose up --build -d
+          echo Deploy end
