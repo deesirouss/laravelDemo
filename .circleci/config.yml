@@ -8,16 +8,7 @@ jobs:
     docker:
       - image: circleci/node:chakracore-8.11.1
     steps:
-      - checkout
       - run:
-          name: Deploy
+          name: AWS EC2 deploy
           command: |
-            # 2- Get the public IP of the current CircleCI runner
-            PUBLIC_IP=54.176.69.77
-            # TODO Change to your username
-            EC2_USERNAME=ubuntu
-            # TODO Change to your server's URL or public IP
-            EC2_PUBLIC_DNS=ec2-54-176-69-77.us-west-1.compute.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS
-            
-        
+            ssh -o StrictHostKeyChecking=no ubuntu@54.176.69.77
