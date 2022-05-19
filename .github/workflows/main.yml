@@ -17,18 +17,23 @@ jobs:
     name: On EC2
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [12.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@master
+      
       - name: Deploy to my EC2 instance
         uses: appleboy/ssh-action@master
         with:
-          host: "ec2-54-176-106-254.us-west-1.compute.amazonaws.com"
-          username: "ubuntu"
-          key: ${{ secrets.SSHKEY }}       
-          port: "22"
+          host: "54.176.106.254"
+          USERNAME: "ubuntu"
+          PORT: "22"
+          KEY: ${{ secrets.SSHKEY }}
           passphrase: "12345"
           script: |
             echo Start deploy
