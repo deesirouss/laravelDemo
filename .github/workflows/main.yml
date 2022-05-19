@@ -23,6 +23,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@master
       
+      - name: copy file via ssh
+        uses: appleboy/scp-action@master
+        with:
+          host: 54.176.106.254
+          username: ubuntu
+          key:  ${{ secrets.SSHKEY }}
+          port: 22
+          passphrase:  12345
+          source: "."
+          target: "~/laravelDemo"
+      
       - name: Deploy to my EC2 instance
         uses: appleboy/ssh-action@master
         with:
