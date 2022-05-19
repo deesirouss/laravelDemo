@@ -2,6 +2,14 @@
 
 name: CI
 
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -14,7 +22,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Deploy to my EC2 instance
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.0.9
         with:
           host: 54.176.106.254
           username: ec2-user
