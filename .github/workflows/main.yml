@@ -28,6 +28,7 @@ jobs:
           username: "ubuntu"
           key: ${{ secrets.SSHKEY }}       
           port: "22"
+          passphrase: "12345"
           script: |
             echo Start deploy
             cd ~/laravelDemo/
