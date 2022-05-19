@@ -27,7 +27,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-#           passphrase: ${{ secrets.SERVER_PASSPHRASE }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             echo Start deploy
             cd ~/laravelDemo/
