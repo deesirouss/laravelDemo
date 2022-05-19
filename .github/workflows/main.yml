@@ -33,17 +33,12 @@ jobs:
           REMOTE_HOST: ${{ secrets.KNOWN_HOSTS }}
           REMOTE_USER: "ubuntu"
           TARGET: "/home/ubuntu/"
-do-the-job:
-  name: Deploy laravel
-  needs: Deploy to my EC2 instance
-  runs-on: {{ needs.Deploy to my EC2 instance.outputs.label }}
-  steps:
-    - name: Start deploying
-      run: |
-        echo Start deploy
-        cd ~/laravelDemo/
-        git pull origin master
-        cp .env.example .env
-        sudo docker compose up --build -d
-        echo Deploy end
+      - name: Start deploying
+        run: |
+          echo Start deploy
+          cd ~/laravelDemo/
+          git pull origin master
+          cp .env.example .env
+          sudo docker compose up --build -d
+          echo Deploy end
 
