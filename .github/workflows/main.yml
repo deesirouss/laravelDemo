@@ -24,13 +24,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSHKEY }}
-          SOURCE: "./"
-          REMOTE_HOST: ${{ secrets.KNOWN_HOSTS }}
-          REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/"
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSHKEY }}
+          host: ${{ secrets.KNOWN_HOSTS }}
+          username: "ubuntu"
+          port: 22
           script: |
             echo Start deploy
             cd ~/laravelDemo/
