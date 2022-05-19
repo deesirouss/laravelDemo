@@ -17,10 +17,6 @@ jobs:
     name: On EC2
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [12.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,11 +26,11 @@ jobs:
       - name: Deploy to my EC2 instance
         uses: appleboy/ssh-action@master
         with:
-          host: "54.176.106.254"
-          USERNAME: "ubuntu"
-          PORT: "22"
+          host: 54.176.106.254
+          USERNAME: ubuntu
+          PORT: 22
           KEY: ${{ secrets.SSHKEY }}
-          passphrase: "12345"
+          passphrase: 12345
           script: |
             echo Start deploy
             cd ~/laravelDemo/
