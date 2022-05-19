@@ -27,6 +27,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
+          fingerprint: ${{ secrets.FINGERPRINT }}
 #           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             echo Start deploy
