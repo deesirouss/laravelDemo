@@ -1,26 +1,43 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+version: 2
+general:
+  branches:
+    only:
+      - master
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  build:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: circleci/openjdk:8-jdk
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+          name: Deploy
+          command: |
+            # 1- Install AWS CLI
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -b ~/bin/aws
+            # 2- Get the public IP of the current CircleCI runner
+            PUBLIC_IP=54.176.69.77
+            # 3- Get AWS Region# TODO Don't forget to replcae by your own Region
+            AWS_REGION=us-west-1
+            # 4- Get SG ID# TODO Don't forget to replace by your own SG ID
+            SG_ID=sg-sg-05babf906d623c776
+            # 5- Add an ingress rule to the security group
+            ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+            # 6- Give the ingress rule some time to propogate
+            sleep 5
+            # 7- SSH to the server to deploy
+            # TODO Change to your username
+            EC2_USERNAME=ubuntu
+            # TODO Change to your server's URL or public IP
+            EC2_PUBLIC_DNS=application-server.example.com
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+            # other commands
+            # TODO Perform steps to deploy
+            # .
+            # .
+            # .
+            # 8- Remove the ingress rule
+            ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
