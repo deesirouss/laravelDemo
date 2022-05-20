@@ -12,9 +12,9 @@ jobs:
       - run:
           name: Deploy
           command: |
-             ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 "cd /home/ubuntu/laravelDemo" && \
-             git pull origin master && \
-             cp .env.example .env && \
+             ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 "cd /home/ubuntu/laravelDemo && exec bash -l" \
+             git pull origin master \
+             cp .env.example .env \
              sudo docker-compose up --build -d
 #            sudo apt-get install python3
 #            # 1- Install AWS CLI
