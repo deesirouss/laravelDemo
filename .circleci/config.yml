@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            apt-get install python
+            sudo apt-get install python
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
