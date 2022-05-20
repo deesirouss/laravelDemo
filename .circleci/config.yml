@@ -12,8 +12,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-             echo "${SSHKEY}" \
-             ssh -o StrictHostKeyChecking=no -i ${SSHKEY}  ubuntu@184.169.228.152 \
+             ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 \
              sudo apt install docker
 #            sudo apt-get install python3
 #            # 1- Install AWS CLI
