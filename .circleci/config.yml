@@ -31,9 +31,9 @@ jobs:
 #            # 6- Give the ingress rule some time to propogate
 #            sleep 5
 #            # 7- SSH to the server to deploy
-            echo ${SSHKEY}
-            ssh -o StrictHostKeyChecking=no -i  ubuntu@184.169.228.152 \
-            cat /etc/os-release
+             echo ${SSHKEY}
+             ssh -o StrictHostKeyChecking=no -i  ubuntu@184.169.228.152 \
+             cat /etc/os-release
                 # other commands
             # TODO Perform steps to deploy
             # .
