@@ -13,7 +13,9 @@ jobs:
           name: Deploy
           command: |
              ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 \
-             sudo apt install docker
+             cd ~/laravelDemo \
+             git pull orgin master \
+             sudo docker compose up --build -d
 #            sudo apt-get install python3
 #            # 1- Install AWS CLI
 #            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
