@@ -40,3 +40,8 @@ jobs:
             # 8- Remove the ingress rule
             ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+
+workflows:
+  deploy_ec2:
+    jobs:
+      - build
