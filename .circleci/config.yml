@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-             ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 "cd '/home/ubuntu/laravelDemo' ; bash --login" \
+             ssh -o StrictHostKeyChecking=no ubuntu@184.169.228.152 "cd /home/ubuntu/laravelDemo" && \
              git pull orgin master \
              sudo docker compose up --build -d
 #            sudo apt-get install python3
