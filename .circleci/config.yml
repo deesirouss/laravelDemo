@@ -42,6 +42,7 @@ jobs:
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
 
 workflows:
+  version: 2
   deploy_ec2:
     jobs:
       - build
