@@ -21,6 +21,7 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Get latest Composer
 # test
+# Mike
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 EXPOSE 9000
