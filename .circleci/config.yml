@@ -38,4 +38,4 @@ workflows:
             branches:
               only:
                 - master
-      - labeled
+
