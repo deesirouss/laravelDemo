@@ -24,6 +24,23 @@ jobs:
           command: |
             source ~/.bashrc
             echo $STAGE
+
+  voyager:
+    machine:
+      image: ubuntu-2004:202107-02
+    steps:
+      - checkout
+      - run:
+          name: Setup Stage
+          command: |
+            sudo apt -y update || true
+            echo 'export STAGE=voyager' >> ~/.bashrc
+      - run:
+          name: Run Deployment
+          command: |
+            source ~/.bashrc
+            echo $STAGE
+
 workflows:
   version: 2
   deploy_ec2:
