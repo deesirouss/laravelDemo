@@ -9,8 +9,28 @@ jobs:
           name: Deploy
           command: |
             echo "Start deploy"
+  enterprise:
+    machine:
+      image: ubuntu-2004:202107-02
+    steps:
+      - checkout
+      - run:
+          name: Setup Stage
+          command: |
+            sudo apt -y update || true
+            echo 'export STAGE=enterprise' >> ~/.bashrc
+      - run:
+          name: Run Deployment
+          command: |
+            source ~/.bashrc
+            echo $STAGE
 workflows:
   version: 2
   deploy_ec2:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - test
