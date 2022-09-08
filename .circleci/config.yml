@@ -20,7 +20,7 @@ jobs:
             sudo docker compose up --build -d && \
             echo Deploy end"
   labeled:
-    if: github.event.label.name == 'approved'
+    if: github.event.label.name == 'enterprise'
     machine:
       image: ubuntu-2004:202107-02
     steps:
