@@ -34,8 +34,8 @@ workflows:
   version: 2
   deploy_ec2:
     jobs:
-      - build
-      filters:
-        branches:
-          only:
-            - master
+      - build:
+        filters:
+          branches:
+            only:
+              - master
