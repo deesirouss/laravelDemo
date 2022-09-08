@@ -1,3 +1,9 @@
+name: approved workflow
+on:
+  pull_request:
+   types:
+    - labeled
+    
 version: 2
 jobs:
   build:
@@ -16,6 +22,7 @@ jobs:
             sudo docker compose up --build -d && \
             echo Deploy end"
   labeled:
+    if: github.event.label.name == 'approved'
     machine:
       image: ubuntu-2004:202107-02
     steps:
@@ -35,11 +42,4 @@ workflows:
                 - master
   labeled:
     jobs:
-      - labeled:
-          if: github.event.label.name == 'enterprise'
-
-name: approved workflow
-on:
-  pull_request:
-   types:
-    - labeled
+      - labeled
