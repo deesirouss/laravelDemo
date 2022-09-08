@@ -1,35 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: |
+            "echo Start deploy"
 workflows:
   version: 2
-name: approved workflow
-on:
-  pull_request:
-   types:
-    - labeled
-jobs:
-  approved_pr_job:
-    if: github.event.label.name == 'enterprise'
-    then:
-      runs-on: ubuntu-latest
-      name: Deploy to QA environment
-      machine:
-        image: ubuntu-2004:202107-02
-      steps:
-        - checkout
-        - run:
-            name: Setup Stage
-            command: |
-              echo "Enterprise"
-    # - name: a simple circle-ci deployment trigger
-      # id: curl-circle-ci
-      # uses: Open-Source-Contrib/circle-ci-trigger-action@latest
-      # with:
-        # circle_ci_token: ${{ CIRCLE_CI_TOKEN }}
-        # circle_ci_job: ${{ CIRCLE_CI_QA_JOB }}
-        # circle_ci_project_url: ${{ github.event.pull_request.head.ref }}
-    # Use the output from the `hello` step
-    # - name: Get the output response
-      # run: echo "The response was ${{ steps.curl-circle-ci.outputs.response }}"
-pr:
-  branches:
-    exclude:
-      - master
+  deploy_ec2:
+    jobs:
+      - build
