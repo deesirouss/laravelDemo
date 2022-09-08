@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            "echo Start deploy"
+            echo "Start deploy"
 workflows:
   version: 2
   deploy_ec2:
