@@ -3,6 +3,10 @@ general:
   branches:
     only:
       - master
+on:
+  pull_request:
+    types:
+      - labeled
 jobs:
   build:
     docker:
@@ -19,8 +23,20 @@ jobs:
             cp .env.example .env && \
             sudo docker compose up --build -d && \
             echo Deploy end"
+  labeled:
+    if: github.event.label.name == 'enterprise'
+    machine:
+      image: ubuntu-2004:202107-02
+      steps:
+        - checkout
+        - run:
+            name: Setup Stage
+            command: |
+              echo "Enterprise"
+
 workflows:
   version: 2
   deploy_ec2:
     jobs:
       - build
+      - labeled
