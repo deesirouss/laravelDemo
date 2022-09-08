@@ -38,4 +38,10 @@ workflows:
             branches:
               only:
                 - master
+      - labeled:
+          filters:
+            on:
+              pull_request:
+                types:
+                  - labeled
 
