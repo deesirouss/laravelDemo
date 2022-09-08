@@ -1,8 +1,4 @@
 version: 2
-general:
-  branches:
-    only:
-      - master
 on:
   pull_request:
     types:
@@ -39,4 +35,7 @@ workflows:
   deploy_ec2:
     jobs:
       - build
-      - labeled
+      filters:
+        branches:
+          only:
+            - master
