@@ -3,8 +3,6 @@ on:
   pull_request:
    types:
     - labeled
-    
-version: 2
 jobs:
   build:
     docker:
@@ -40,3 +38,4 @@ workflows:
             branches:
               only:
                 - master
+      - labeled
