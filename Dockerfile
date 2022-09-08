@@ -1,5 +1,5 @@
 FROM php:7.4-fpm
- 
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
    git \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
    unzip
 
 WORKDIR /var/www
- 
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -20,6 +20,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Get latest Composer
+# test
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-EXPOSE 9000 
+EXPOSE 9000
