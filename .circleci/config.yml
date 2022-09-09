@@ -17,7 +17,6 @@ jobs:
       - run:
           name: Setup Stage
           command: |
-            sudo apt -y update || true
             if [ github.event.label.name == 'enterprise' ]
             then
               echo 'export STAGE=enterprise' >> ~/.bashrc
