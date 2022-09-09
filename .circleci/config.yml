@@ -20,6 +20,7 @@ jobs:
             if [ github.event.label.name == 'enterprise' ]
             then
               echo 'export STAGE=enterprise' >> ~/.bashrc
+            fi
       - run:
           name: Run Deployment
           command: |
