@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Setup Stage
           command: |
-            if [ ${{ github.event.label.name }} == 'enterprise' ]
+            if [ $github.event.label.name == 'enterprise' ]
             then
               echo 'export STAGE=enterprise' >> ~/.bashrc
             fi
