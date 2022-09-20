@@ -23,23 +23,21 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
-        cd /home/runner/work/
-        ls -al
         cd /home/runner/
         ls -al
         if [ $GITHUB_REF_NAME == "master" ];
         then
           pwd
-          echo "export STAGE=master" >> ~/.bashrc
+          echo "export STAGE=master" >> /home/runner/.bashrc
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
           echo 'export STAGE=mike' >> '~/.bashrc'
         else
           echo 'export STAGE=dirty' >> '~/.bashrc'
         fi
-        source '~/.bashrc'
+        source '/home/runner/.bashrc
         echo $STAGE
-        ${PWD}
+        pwd
 
 
 #    - name: Configure AWS credentials
