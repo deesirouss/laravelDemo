@@ -2,7 +2,7 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Deploy to Amazon ECS
+name: Deploy to AWS
 
 on:
   push:
@@ -23,21 +23,21 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
-        cd /home/runner/
+        touch .bashrc
         if [ $GITHUB_REF_NAME == "master" ];
         then
           pwd
-          echo "export STAGE=master" >> /home/runner/.bashrc
+          echo "export STAGE=master" >> .bashrc
           echo master
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
-          echo 'export STAGE=mike' >> /home/runner/.bashrc
+          echo 'export STAGE=mike' >> .bashrc
         else
-          echo 'export STAGE=dirty' >> /home/runner/.bashrc
+          echo 'export STAGE=dirty' >> .bashrc
         fi
     - name: Run Deployment
       run: |
-        source /home/runner/.bashrc
+        source .bashrc
         chmod +x deploy.sh
         ./deploy.sh $STAGE
         echo $STAGE
