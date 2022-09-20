@@ -23,26 +23,26 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
-        touch .bashrc
-        cat /home/runner/.bashrc >> .bashrc
+#        touch .bashrc
+#        cat /home/runner/.bashrc >> .bashrc
         ls -al .bashrc
         ls -al /home/runner/.bashrc
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          echo "export STAGE=master" >> .bashrc
+          echo "export STAGE=master" >> ~/.bash_profile
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
-          echo 'export STAGE=mike' >> .bashrc
+          echo 'export STAGE=mike' >> ~/.bash_profile
         else
-          echo 'export STAGE=dirty' >> .bashrc
+          echo 'export STAGE=dirty' >> ~/.bash_profile
         fi
       shell: bash
     - name: Run Deployment
       run: |
-        source .bashrc
+        source ~/.bash_profile
         chmod +x deploy.sh
         ./deploy.sh $STAGE
-        rm .bashrc
+#        rm .bashrc
       shell: bash
 
 
