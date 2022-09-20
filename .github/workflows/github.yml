@@ -24,7 +24,7 @@ jobs:
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          'echo 'export STAGE=master' >> ~/.bashrc'
+          'echo "export STAGE=master" >> ~/.bashrc'
           echo $GITHUB_REF_NAME
           echo $STAGE
         elif [ $GITHUB_REF_NAME == "mike" ];
