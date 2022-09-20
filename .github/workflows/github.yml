@@ -20,22 +20,22 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Setup Stage
-      working-directory: /home/runner/work/
+#      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          echo "export STAGE=master" >> .bashrc
+          ${PWD}
+          echo "export STAGE=master" >> '~/.bashrc'
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
-          echo 'export STAGE=mike' >> .bashrc
+          echo 'export STAGE=mike' >> '~/.bashrc'
         else
-          echo 'export STAGE=dirty' >> ~/.bashrc
+          echo 'export STAGE=dirty' >> '~/.bashrc'
         fi
-        source .bashrc
+        source '~/.bashrc'
         echo $STAGE
-        cd
-        ls
+        ${PWD}
 
 
 #    - name: Configure AWS credentials
