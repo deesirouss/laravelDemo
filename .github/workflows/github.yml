@@ -37,7 +37,8 @@ jobs:
     - name: Run Deployment
       run: |
         source ~/.bashrc
-        echo $STAGE
+        echo 'done'
+        echo "$STAGE"
 
 
 #    - name: Configure AWS credentials
