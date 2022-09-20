@@ -24,11 +24,7 @@ jobs:
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          touch ~/text.txt
-          echo 'done' >> ~/text.txt
-          cat ~/text.txt
-          rm ~/text.txt
-          echo 'export STAGE=master' >> ~/.bashrc
+          'echo 'export STAGE=master' >> ~/.bashrc'
           echo $GITHUB_REF_NAME
           echo $STAGE
         elif [ $GITHUB_REF_NAME == "mike" ];
