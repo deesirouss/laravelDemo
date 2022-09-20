@@ -28,6 +28,7 @@ jobs:
         if [ $GITHUB_REF_NAME == "master" ];
         then
           echo 'export STAGE=master' >> ~/.bashrc
+          cd
           find .bashrc
           echo $GITHUB_REF_NAME
           echo $STAGE
