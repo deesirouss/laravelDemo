@@ -34,11 +34,11 @@ jobs:
         else
           echo 'export STAGE=dirty' >> ~/.bashrc
         fi
+        source ~/.bashrc
     - name: Run Deployment
       run: |
-        source ~/.bashrc
         echo 'done'
-        echo "$STAGE"
+        echo $STAGE
 
 
 #    - name: Configure AWS credentials
