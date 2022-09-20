@@ -21,6 +21,7 @@ jobs:
 
     - name: Setup Stage
       run: |
+        sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
           touch ~/text.txt
@@ -28,7 +29,6 @@ jobs:
           cat ~/text.txt
           rm ~/text.txt
           echo 'export STAGE=master' >> ~/.bashrc
-          ls -al
           echo $GITHUB_REF_NAME
           echo $STAGE
         elif [ $GITHUB_REF_NAME == "mike" ];
