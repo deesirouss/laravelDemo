@@ -27,17 +27,16 @@ jobs:
         then
           ls -al
           echo "export STAGE=master" >> .bashrc
-          echo $GITHUB_REF_NAME
-          echo $STAGE
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
           echo 'export STAGE=mike' >> .bashrc
         else
           echo 'export STAGE=dirty' >> ~/.bashrc
         fi
+        source .bashrc
+        echo $STAGE
     - name: Run Deployment
       run: |
-        source ~/.bashrc
         echo $STAGE
 
 
