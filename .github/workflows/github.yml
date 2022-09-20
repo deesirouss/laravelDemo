@@ -23,10 +23,14 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
+        cd /home/runner/work/
+        ls -al
+        cd /home/runner/
+        ls -al
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          ${PWD}
-          echo "export STAGE=master" >> '~/.bashrc'
+          pwd
+          echo "export STAGE=master" >> ~/.bashrc
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
           echo 'export STAGE=mike' >> '~/.bashrc'
