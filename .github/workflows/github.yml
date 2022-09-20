@@ -35,7 +35,9 @@ jobs:
         else
           echo 'export STAGE=dirty' >> '~/.bashrc'
         fi
-        source '/home/runner/.bashrc
+    - name: Run Deployment
+      run: |
+        source /home/runner/.bashrc
         echo $STAGE
         pwd
 
