@@ -25,13 +25,26 @@ jobs:
 
     - name: Setup Stage
       run: |
-        echo $GITHUB_REF_NAME
+        if [ $GITHUB_REF_NAME == "master" ]
+        then
+          echo 'export STAGE=master' >> ~/.bashrc
+        elif [ $GITHUB_REF_NAME == "mike" ]
+        then
+          echo 'export STAGE=mike' >> ~/.bashrc
+        else
+          echo 'export STAGE=dirty' >> ~/.bashrc
+        fi
+    - name: Run Deployment
+      run: |
+        source ~/.bashrc
+        echo $STAGE
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+
+#    - name: Configure AWS credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: ${{ env.AWS_REGION }}
 
 
