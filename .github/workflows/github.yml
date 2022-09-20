@@ -27,10 +27,10 @@ jobs:
       run: |
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          touch text.txt
-          echo 'done' >> text.txt
+          touch ~/text.txt
+          echo 'done' >> ~/text.txt
           cat text.txt
-          rm text.txt
+          rm ~/text.txt
           echo 'export STAGE=master' >> ~/.bashrc
           ls -al
           echo $GITHUB_REF_NAME
@@ -43,7 +43,6 @@ jobs:
         fi
     - name: Run Deployment
       run: |
-        man source
         source ~/.bashrc
         echo $STAGE
 
