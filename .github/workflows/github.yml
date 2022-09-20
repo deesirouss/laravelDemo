@@ -24,7 +24,7 @@ jobs:
       run: |
         sudo apt -y update || true
         whoami
-        chmod +rwx /home/runner/.bashrc
+        chmod 777 /home/runner/.bashrc
         ls -al /home/runner/.bashrc
         if [ $GITHUB_REF_NAME == "master" ];
         then
