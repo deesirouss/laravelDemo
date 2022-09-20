@@ -25,7 +25,7 @@ jobs:
         then
           touch ~/text.txt
           echo 'done' >> ~/text.txt
-          cat text.txt
+          cat ~/text.txt
           rm ~/text.txt
           echo 'export STAGE=master' >> ~/.bashrc
           ls -al
