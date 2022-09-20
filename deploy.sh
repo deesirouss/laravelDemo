@@ -2,4 +2,4 @@
 
 echo $1
 
-aws s3 ls 
+aws s3 ls

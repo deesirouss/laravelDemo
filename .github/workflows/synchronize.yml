@@ -2,20 +2,28 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Deploy to AWS
+name: Synchronize Deployment
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     types:
-      - labeled
+      - synchronize
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-22.04
+  checkLabels:
+    runs-on: ubuntu-latest
+    if: ${{github.event.pull_request.labels.*.name[0]}}
+    steps:
+      - run: echo LABELS is not empty
 
+  deploy:
+    needs: [checkLabels]
+    strategy:
+      matrix:
+        label: ${{github.event.pull_request.labels.*.name}}
+
+    name: Deployment for ${{matrix.label}}
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -23,25 +31,8 @@ jobs:
     - name: Setup Stage
       run: |
         sudo apt -y update || true
-        if [ $GITHUB_REF_NAME == "master" ];
-        then
-          echo "export STAGE=master" >> ~/.bash_profile
-        elif [ $GITHUB_REF_NAME == "mike" ];
-        then
-          echo 'export STAGE=mike' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'enterprise' ];
-        then
-          echo 'export STAGE=enterprise' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'voyager' ];
-        then
-          echo 'export STAGE=voyager' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'cerritos' ];
-        then
-          echo 'export STAGE=cerritos' >> ~/.bash_profile
-        else
-          echo 'export STAGE=dirty' >> ~/.bash_profile
-        fi
-
+        echo 'export STAGE="${{matrix.label}}"' >> ~/.bash_profile
+        
     - name: Login to AWS
       uses: aws-actions/configure-aws-credentials@v1
       with:
