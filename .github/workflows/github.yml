@@ -40,6 +40,7 @@ jobs:
         fi
     - name: Run Deployment
       run: |
+        source ~/.bashrc
         echo $STAGE
 
 
