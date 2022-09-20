@@ -25,7 +25,6 @@ jobs:
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          ls -al
           echo "export STAGE=master" >> .bashrc
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
@@ -35,9 +34,8 @@ jobs:
         fi
         source .bashrc
         echo $STAGE
-    - name: Run Deployment
-      run: |
-        echo $STAGE
+        cd
+        ls
 
 
 #    - name: Configure AWS credentials
