@@ -23,11 +23,10 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
-        cp /home/runner/.bashrc .
+        chmod +x /home/runner/.bashrc
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          pwd
-          echo "export STAGE=master" >> .bashrc
+          echo "export STAGE=master" >> /home/runner/.bashrc
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
           echo 'export STAGE=mike' >> .bashrc
@@ -36,11 +35,9 @@ jobs:
         fi
     - name: Run Deployment
       run: |
-        source .bashrc
-        cat .bashrc
+        source /home/runner/.bashrc
         chmod +x deploy.sh
         ./deploy.sh $STAGE
-        rm .bashrc
 
 
 #    - name: Configure AWS credentials
