@@ -28,7 +28,7 @@ jobs:
         if [ $GITHUB_REF_NAME == "master" ];
         then
           pwd
-          echo "export STAGE=master" >> /home/runner/.bashrc
+          echo 'export STAGE=master' >> '/home/runner/.bashrc'
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
           echo 'export STAGE=mike' >> '~/.bashrc'
@@ -37,7 +37,8 @@ jobs:
         fi
     - name: Run Deployment
       run: |
-        source /home/runner/.bashrc
+        source '/home/runner/.bashrc'
+        cat '/home/runner/.bashrc'
         echo $STAGE
         pwd
 
