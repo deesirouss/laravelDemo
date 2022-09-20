@@ -23,6 +23,7 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
+        cat '/home/runner/.bashrc'
         cd /home/runner/
         if [ $GITHUB_REF_NAME == "master" ];
         then
@@ -39,7 +40,7 @@ jobs:
     - name: Run Deployment
       run: |
         cat '/home/runner/.bashrc'
-        echo $STAGE
+        echo "$STAGE"
         pwd
 
 
