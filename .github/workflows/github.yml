@@ -28,7 +28,6 @@ jobs:
         if [ $GITHUB_REF_NAME == "master" ];
         then
           echo 'export STAGE=master' >> ~/.bashrc
-          source ~/.bashrc
           echo $GITHUB_REF_NAME
           echo $STAGE
         elif [ $GITHUB_REF_NAME == "mike" ];
@@ -37,7 +36,6 @@ jobs:
         else
           echo 'export STAGE=dirty' >> ~/.bashrc
         fi
-        source ~/.bashrc
     - name: Run Deployment
       run: |
         echo $STAGE
