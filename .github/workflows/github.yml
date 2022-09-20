@@ -23,7 +23,8 @@ jobs:
 #      working-directory: /home/runner/work/
       run: |
         sudo apt -y update || true
-        chmod +x /home/runner/.bashrc
+        ls -al /home/runner/.bashrc
+        chmod +rwx /home/runner/.bashrc
         if [ $GITHUB_REF_NAME == "master" ];
         then
           echo "export STAGE=master" >> /home/runner/.bashrc
