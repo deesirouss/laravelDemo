@@ -15,12 +15,18 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-22.04
+    env:
+      CI: false
+    container:
+      image: leapfrogtechnology/envault:0.4.6-node10.16.0-stretch-slim
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
     - name: Setup Stage
+      env:
+        CI: false
       run: |
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
