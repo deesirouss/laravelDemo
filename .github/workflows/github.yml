@@ -28,7 +28,7 @@ jobs:
       env:
         CI: false
       run: |
-        sudo apk -y update || true
+        ls -al
         if [ $GITHUB_REF_NAME == "master" ];
         then
           echo "export STAGE=master" >> root/.profile
