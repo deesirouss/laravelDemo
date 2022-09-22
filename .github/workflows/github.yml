@@ -27,6 +27,7 @@ jobs:
     - name: Setup Stage
       env:
         CI: false
+      shell: bash
       run: |
         touch .bashrc
         if [ $GITHUB_REF_NAME == "master" ]
