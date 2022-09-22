@@ -31,21 +31,21 @@ jobs:
         sudo apt -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          echo "export STAGE=master" >> ~/.bashrc
+          echo "export STAGE=master" >> ~/.profile
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
-          echo 'export STAGE=mike' >> ~/.bashrc
+          echo 'export STAGE=mike' >> ~/.profile
         elif [ ${{ github.event.label.name }} == 'enterprise' ];
         then
-          echo 'export STAGE=enterprise' >> ~/.bashrc
+          echo 'export STAGE=enterprise' >> ~/.profile
         elif [ ${{ github.event.label.name }} == 'voyager' ];
         then
-          echo 'export STAGE=voyager' >> ~/.bashrc
+          echo 'export STAGE=voyager' >> ~/.profile
         elif [ ${{ github.event.label.name }} == 'cerritos' ];
         then
-          echo 'export STAGE=cerritos' >> ~/.bashrc
+          echo 'export STAGE=cerritos' >> ~/.profile
         else
-          echo 'export STAGE=dirty' >> ~/.bashrc
+          echo 'export STAGE=dirty' >> ~/.profile
         fi
 
     - name: Login to AWS
@@ -57,7 +57,7 @@ jobs:
 
     - name: Run Deployment
       run: |
-        source ~/.bashrc
+        source ~/.profile
         chmod +x deploy.sh
         ./deploy.sh $STAGE
   notify:
