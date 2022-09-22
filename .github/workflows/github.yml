@@ -31,21 +31,21 @@ jobs:
         sudo apk -y update || true
         if [ $GITHUB_REF_NAME == "master" ];
         then
-          echo "export STAGE=master" >> ~/.ashrc
+          echo "export STAGE=master" >> root/.profile
         elif [ $GITHUB_REF_NAME == "mike" ];
         then
-          echo 'export STAGE=mike' >> ~/.ashrc
+          echo 'export STAGE=mike' >> root/.profile
         elif [ ${{ github.event.label.name }} == 'enterprise' ];
         then
-          echo 'export STAGE=enterprise' >> ~/.ashrc
+          echo 'export STAGE=enterprise' >> root/.profile
         elif [ ${{ github.event.label.name }} == 'voyager' ];
         then
-          echo 'export STAGE=voyager' >> ~/.ashrc
+          echo 'export STAGE=voyager' >> root/.profile
         elif [ ${{ github.event.label.name }} == 'cerritos' ];
         then
-          echo 'export STAGE=cerritos' >> ~/.ashrc
+          echo 'export STAGE=cerritos' >> root/.profile
         else
-          echo 'export STAGE=dirty' >> ~/.ashrc
+          echo 'export STAGE=dirty' >> root/.profile
         fi
 
     - name: Login to AWS
@@ -57,7 +57,7 @@ jobs:
 
     - name: Run Deployment
       run: |
-        source ~/.ashrc
+        . root/.profile
         chmod +x deploy.sh
         ./deploy.sh $STAGE
   notify:
