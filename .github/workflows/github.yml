@@ -57,7 +57,7 @@ jobs:
 
     - name: Run Deployment
       run: |
-        . .bashrc
+        ./.bashrc
         chmod +x deploy.sh
         ./deploy.sh $STAGE
         rm .bashrc
