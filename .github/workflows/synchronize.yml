@@ -36,8 +36,8 @@ jobs:
       env:
         CI: false
       run: |
-        sudo apt -y update || true
-        echo 'export STAGE="${{matrix.label}}"' >> ~/.profile
+        sudo apk -y update || true
+        echo 'export STAGE="${{matrix.label}}"' >> ~/.ashrc
 
     - name: Login to AWS
       uses: aws-actions/configure-aws-credentials@v1
@@ -48,7 +48,7 @@ jobs:
 
     - name: Run Deployment
       run: |
-        source ~/.profile
+        source ~/.ashrc
         chmod +x deploy.sh
         ./deploy.sh $STAGE
 
