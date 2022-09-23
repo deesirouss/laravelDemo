@@ -10,6 +10,7 @@ on:
       - synchronize
       - labeled
 
+
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
@@ -22,7 +23,7 @@ jobs:
 
   deploy:
     needs: [checkLabels]
-    name: Deployment for ${{ github.event.label.name }}
+    name: Deployment for test Environments
     runs-on: ubuntu-22.04
     env:
       CI: false
@@ -37,7 +38,7 @@ jobs:
         env:
           CI: false
         run: |
-          echo 'export STAGE="${{ github.event.label.name }}"' >> ~/.bash_profile
+          echo "export STAGE=${{ github.event.label.name }}" >> ~/.bash_profile
 
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v1
