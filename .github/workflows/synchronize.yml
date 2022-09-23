@@ -38,7 +38,7 @@ jobs:
         env:
           CI: false
         run: |
-          echo "export STAGE=${{ github.event.label.name }}" >> ~/.bash_profile
+          echo "export STAGE=test" >> ~/.bash_profile
 
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v1
