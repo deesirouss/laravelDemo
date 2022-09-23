@@ -29,27 +29,27 @@ jobs:
     container:
       image: leapfrogtechnology/envault:0.4.6-node10.16.0-stretch-slim
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Stage
-      env:
-        CI: false
-      run: |
-        echo 'export STAGE="${{matrix.label}}"' >> root/.profile
+      - name: Setup Stage
+        env:
+          CI: false
+        run: |
+          echo 'export STAGE="${{matrix.label}}"' >> root/.profile
 
-    - name: Login to AWS
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Run Deployment
-      run: |
-        . root/.profile
-        chmod +x deploy.sh
-        ./deploy.sh $STAGE
+      - name: Run Deployment
+        run: |
+          . root/.profile
+          chmod +x deploy.sh
+          ./deploy.sh $STAGE
 
 #  notify:
 #    needs: [deploy]
