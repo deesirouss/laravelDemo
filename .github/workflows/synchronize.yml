@@ -12,7 +12,7 @@ on:
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: ${{ contains(fromJson('["cerritos","voyager","enterprise"]'), github.event.pull_request.labels.*.name) }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, fromJson('["cerritos","voyager","enterprise"]')) }}
     steps:
       - run: echo LABELS should match test environment names
 
