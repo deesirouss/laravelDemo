@@ -13,7 +13,9 @@ on:
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: github.event.label.name == 'cerritos' || github.event.label.name == 'enterprise' || github.event.label.name == 'voyager'
+    if: ${{ github.event.label.name == 'cerritos' }} ||
+      ${{ github.event.label.name == 'enterprise' }} ||
+      ${{ github.event.label.name == 'voyager' }}
     steps:
       - run: |
           echo LABELS should match test envs names
