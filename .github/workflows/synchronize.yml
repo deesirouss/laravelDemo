@@ -12,7 +12,9 @@ on:
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.pull_request.label.name == 'enterprise' || github.event.pull_request.label.name == 'cerritos' || github.event.pull_request.label.name == 'voyager' }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'enterprise') }} ||
+        ${{ contains(github.event.pull_request.labels.*.name, 'cerritos') }} ||
+        ${{ contains(github.event.pull_request.labels.*.name, 'voyager') }}
     steps:
       - run: echo LABELS should match test environment names
 
