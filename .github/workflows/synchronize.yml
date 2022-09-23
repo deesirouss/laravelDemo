@@ -8,25 +8,19 @@ on:
   pull_request:
     types:
       - synchronize
+      - labeled
 
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'enterprise') }} ||
-        ${{ contains(github.event.pull_request.labels.*.name, 'cerritos') }} ||
-        ${{ contains(github.event.pull_request.labels.*.name, 'voyager') }}
+    if: github.event.label.name == 'cerritos' || github.event.label.name == 'enterprise' || github.event.label.name == 'voyager'
     steps:
       - run: |
-          echo LABELS should match test environment names
-          echo
+          echo LABELS should match test envs names
 
   deploy:
     needs: [checkLabels]
-    strategy:
-      matrix:
-        label: ${{github.event.pull_request.labels.*.name}}
-
-    name: Deployment for ${{matrix.label}}
+    name: Deployment for ${{ github.event.label.name }}
     runs-on: ubuntu-22.04
     env:
       CI: false
@@ -41,7 +35,7 @@ jobs:
         env:
           CI: false
         run: |
-          echo 'export STAGE="${{matrix.label}}"' >> ~/.bash_profile
+          echo 'export STAGE="${{ github.event.label.name }}"' >> ~/.bash_profile
 
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v1

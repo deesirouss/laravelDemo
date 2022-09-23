@@ -7,22 +7,9 @@ name: Deploy to AWS
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    types:
-      - labeled
 
 jobs:
-  checkLabels:
-    runs-on: ubuntu-22.04
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'enterprise') && github.event_name == 'pull_request' }} ||
-        ${{ contains(github.event.pull_request.labels.*.name, 'cerritos') && github.event_name == 'pull_request' }} ||
-        ${{ contains(github.event.pull_request.labels.*.name, 'voyager') && github.event_name == 'pull_request' }} ||
-        ${{ ( github.event_name == 'push' ) }}
-    steps:
-      - run: echo Working on Push or LABEL name equals to Test Envs
-
   deploy:
-    needs: [checkLabels]
     name: Deploy
     runs-on: ubuntu-22.04
     env:
