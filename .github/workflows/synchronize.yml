@@ -12,7 +12,7 @@ on:
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: ${{ (github.event.pull_request.labels.*.name[0] && contains(github.event.pull_request.labels.*.name, fromJson('["cerritos","voyager","enterprise"]'))) }}
+    if: ${{ (github.event.pull_request.labels.*.name[0] && contains(fromJson('["cerritos","voyager","enterprise"]'), github.event.pull_request.labels.*.name)) }}
     steps:
       - run: echo LABELS is not empty
 
