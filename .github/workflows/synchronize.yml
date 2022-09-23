@@ -16,7 +16,9 @@ jobs:
         ${{ contains(github.event.pull_request.labels.*.name, 'cerritos') }} ||
         ${{ contains(github.event.pull_request.labels.*.name, 'voyager') }}
     steps:
-      - run: echo LABELS should match test environment names
+      - run: |
+          echo LABELS should match test environment names
+          echo
 
   deploy:
     needs: [checkLabels]
@@ -35,10 +37,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Stage
+        shell: bash
         env:
           CI: false
         run: |
-          echo 'export STAGE="${{matrix.label}}"' >> root/.profile
+          echo 'export STAGE="${{matrix.label}}"' >> ~/.bash_profile
 
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v1
@@ -48,8 +51,9 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Run Deployment
+        shell: bash
         run: |
-          . root/.profile
+          source ~/.bash_profile
           chmod +x deploy.sh
           ./deploy.sh $STAGE
 
