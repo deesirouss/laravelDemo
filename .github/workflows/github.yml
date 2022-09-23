@@ -32,15 +32,6 @@ jobs:
         elif [ $GITHUB_REF_NAME == "mike" ]
         then
           echo 'export STAGE=mike' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'enterprise' ]
-        then
-          echo 'export STAGE=enterprise' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'voyager' ]
-        then
-          echo 'export STAGE=voyager' >> ~/.bash_profile
-        elif [ ${{ github.event.label.name }} == 'cerritos' ]
-        then
-          echo 'export STAGE=cerritos' >> ~/.bash_profile
         else
           echo 'export STAGE=dirty' >> ~/.bash_profile
         fi

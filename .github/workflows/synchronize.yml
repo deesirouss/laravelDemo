@@ -51,8 +51,7 @@ jobs:
         shell: bash
         run: |
           source ~/.bash_profile
-          chmod +x deploy.sh
-          ./deploy.sh $STAGE
+          echo $STAGE
 
 #  notify:
 #    needs: [deploy]
