@@ -14,7 +14,7 @@ on:
 jobs:
   checkLabels:
     runs-on: ubuntu-22.04
-    if: ${{ (github.event.label.name == 'enterprise' || github.event.label.name == 'cerritos' || github.event.label.name == 'voyager') && (github.event_name == 'pull_request') }} ||
+    if: ${{ (github.event.pull_request.label.name == 'enterprise' || github.event.pull_request.label.name == 'cerritos' || github.event.pull_request.label.name == 'voyager') && (github.event_name == 'pull_request') }} ||
         ${{ ( github.event_name == 'push' ) }}
     steps:
       - run: echo Working on Push or LABEL name equals to Test Envs
