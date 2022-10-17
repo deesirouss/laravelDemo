@@ -71,7 +71,7 @@ jobs:
 
       # Deploy Services
       - name: Deploy Services to AWS
-        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), ${{ env.ENV_NAME }})
+        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), env.ENV_NAME)
         shell: bash
         run: |
           echo $ENV_NAME
