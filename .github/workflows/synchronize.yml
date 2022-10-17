@@ -57,8 +57,8 @@ jobs:
             echo "export STAGE=dirty" >> ~/.bash_profile
           fi
           source ~/.bash_profile
-          echo "::set-env name=ENV_NAME::$STAGE"
-          echo $ENV_NAME
+          echo "{ENV_NAME}={$STAGE}" >> $GITHUB_ENV
+          echo ${{ env.ENV_NAME }}
 
 #      # Login
 #      - name: Login to AWS
@@ -77,7 +77,7 @@ jobs:
 #          source ~/.bash_profile
 #          chmod +x deploy/deploy.sh
 #          deploy/deploy.sh $STAGE
-#        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), $ENV_NAME)
+        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), ${{ env.ENV_NAME }})
 
 #      # send notifications to slack channel
 #      - name: Notify Slack Success
