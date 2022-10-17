@@ -77,7 +77,7 @@ jobs:
 #          source ~/.bash_profile
 #          chmod +x deploy/deploy.sh
 #          deploy/deploy.sh $STAGE
-        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), {{ ENV_NAME }} )
+#        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), $ENV_NAME)
 
 #      # send notifications to slack channel
 #      - name: Notify Slack Success
