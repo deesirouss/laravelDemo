@@ -8,6 +8,9 @@ on:
   push:
     branches: [ "master" ]
 
+env:
+  ENV_NAME: 'dirty'
+
 jobs:
   deploy:
     name: Deploy
@@ -35,19 +38,23 @@ jobs:
         else
           echo 'export STAGE=dirty' >> ~/.bash_profile
         fi
+        source ~/.bash_profile
+        echo "::set-env name=ENV_NAME::$STAGE"
+        echo $ENV_NAME
 
-    - name: Login to AWS
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+#    - name: Login to AWS
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Run Deployment
       shell: bash
       run: |
         source ~/.bash_profile
         echo $STAGE
+      if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), $ENV_NAME)
 
 
 
