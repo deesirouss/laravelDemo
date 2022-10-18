@@ -35,7 +35,7 @@ jobs:
       - name: Setup Stage
         shell: bash
         run: |
-#          sudo apt -y update || true
+          sudo apt -y update || true
           echo 'export STAGE="${{ matrix.label }}"' >> ~/.bash_profile
 
       # Login
