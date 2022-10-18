@@ -69,7 +69,7 @@ jobs:
 
       # Deploy Services
       - name: Deploy Services to AWS
-        if: $EXECUTION
+        if: ${{ env.EXECUTION == true }}
         shell: bash
         run: |
           echo $EXECUTION
