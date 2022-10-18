@@ -55,23 +55,23 @@ jobs:
 #          chmod +x deploy/deploy.sh
 #          deploy/deploy.sh $STAGE
 
-      # send notifications to slack channel
-      - name: Notify Slack Success
-        if: success()
-        uses: rtCamp/action-slack-notify@v2.2.0
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_MESSAGE: 'Build Succeed :rocket:'
-          SLACK_USERNAME: 'GitHub_Actions'
-          SLACK_ICON: https://docvocate.com/assets/img/logo.png
-          SLACK_COLOR: 'good'
-
-      - name: Notify Slack Fail
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2.2.0
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_MESSAGE: 'Build Failed :x:'
-          SLACK_USERNAME: 'GitHub_Actions'
-          SLACK_ICON: https://docvocate.com/assets/img/logo.png
-          SLACK_COLOR: '#F32013'
+#      # send notifications to slack channel
+#      - name: Notify Slack Success
+#        if: success()
+#        uses: rtCamp/action-slack-notify@v2.2.0
+#        env:
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#          SLACK_MESSAGE: 'Build Succeed :rocket:'
+#          SLACK_USERNAME: 'GitHub_Actions'
+#          SLACK_ICON: https://docvocate.com/assets/img/logo.png
+#          SLACK_COLOR: 'good'
+#
+#      - name: Notify Slack Fail
+#        if: failure()
+#        uses: rtCamp/action-slack-notify@v2.2.0
+#        env:
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#          SLACK_MESSAGE: 'Build Failed :x:'
+#          SLACK_USERNAME: 'GitHub_Actions'
+#          SLACK_ICON: https://docvocate.com/assets/img/logo.png
+#          SLACK_COLOR: '#F32013'

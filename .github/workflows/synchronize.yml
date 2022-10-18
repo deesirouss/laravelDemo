@@ -12,7 +12,7 @@ on:
       - labeled
 
 env:
-  EXECUTION: true
+  EXECUTION: 'true'
 
 jobs:
   runDeployment:
@@ -54,7 +54,7 @@ jobs:
             echo "export STAGE=cerritos" >> ~/.bash_profile
           else
             echo "export STAGE=dirty" >> ~/.bash_profile
-            echo "{EXECUTION}={false}" >> $GITHUB_ENV
+            echo "{EXECUTION}={'false'}" >> $GITHUB_ENV
           fi
           echo ${{ env.EXECUTION }}
 
@@ -69,7 +69,7 @@ jobs:
 
       # Deploy Services
       - name: Deploy Services to AWS
-        if: env.EXECUTION
+        if: env.EXECUTION == 'true'
         shell: bash
         run: |
           echo $EXECUTION
