@@ -54,7 +54,7 @@ jobs:
             echo "export STAGE=cerritos" >> ~/.bash_profile
           else
             echo "export STAGE=dirty" >> ~/.bash_profile
-            echo "EXECUTION='false'" >> $GITHUB_ENV
+            echo "EXECUTION=false" >> $GITHUB_ENV
           fi
           echo ${{ env.EXECUTION }}
 
