@@ -19,8 +19,10 @@ jobs:
       matrix:
         label: ${{ github.event.pull_request.labels.*.name }}
         exclude:
-          label:
-            - DO NOT MERGE
+          - label:
+            - 'DO NOT MERGE'
+            - 'bug'
+
 
     name: Deployment for ${{ matrix.label }}
     runs-on: ubuntu-22.04
