@@ -10,10 +10,9 @@ on:
   pull_request:
     types:
       - labeled
-      - synchronize
 
 env:
-  ENV_NAME: 'dirty'
+  EXECUTION: true
 
 jobs:
   runDeployment:
@@ -55,10 +54,9 @@ jobs:
             echo "export STAGE=cerritos" >> ~/.bash_profile
           else
             echo "export STAGE=dirty" >> ~/.bash_profile
+            echo "{EXECUTION}={false}" >> $GITHUB_ENV
           fi
-          source ~/.bash_profile
-          echo "{ENV_NAME}={$STAGE}" >> $GITHUB_ENV
-          echo ${{ env.ENV_NAME }}
+          echo ${{ env.EXECUTION }}
 
 #      # Login
 #      - name: Login to AWS
@@ -71,11 +69,12 @@ jobs:
 
       # Deploy Services
       - name: Deploy Services to AWS
-        if: contains(fromJson('["prod", "staging", "showcase", "enterprise", "voyager", "cerritos"]'), env.ENV_NAME)
+        if: env.EXECUTION
         shell: bash
         run: |
-          echo $ENV_NAME
-#          source ~/.bash_profile
+          echo $EXECUTION
+          source ~/.bash_profile
+          echo $STAGE
 #          chmod +x deploy/deploy.sh
 #          deploy/deploy.sh $STAGE
 
