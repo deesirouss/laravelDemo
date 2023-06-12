@@ -1,0 +1,63 @@
+name: PostgreSQL service example
+on:
+  workflow_dispatch:
+  push:
+
+
+jobs:
+  # Label of the container job
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: node:10.18-jessie
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Download sql file
+        run: |
+          sudo apt update -y
+          sudo apt install awscli
+          aws s3 cp s3://com.docvocate.localhost/dbdump/EnterpriseAppealioDump.sql EnterpriseAppealioDump.sql
+
+      - name: Connect to PostgreSQL and Dump SQL File
+        run: |
+          psql -h localhost -U postgres -d mydatabase -c "CREATE TABLE example (id serial primary key, name varchar(100));"
+          pg_dump -h localhost -U postgres -d mydatabase -t example > dump.sql
+
+      - name: Print SQL Dump
+        run: cat dump.sql
+
+      - name: Print Enterprise SQL Dump
+        run: cat EnterpriseAppealioDump.sql
+
+      - name: Delete SQL Dump
+        run: rm EnterpriseAppealioDump.sql
