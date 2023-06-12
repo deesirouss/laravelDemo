@@ -44,8 +44,8 @@ jobs:
 
       - name: Download sql file
         run: |
-          sudo apt update -y
-          sudo apt install awscli
+          apt update -y
+          apt install awscli
           aws s3 cp s3://com.docvocate.localhost/dbdump/EnterpriseAppealioDump.sql EnterpriseAppealioDump.sql
 
       - name: Connect to PostgreSQL and Dump SQL File
