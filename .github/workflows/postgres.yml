@@ -49,9 +49,11 @@ jobs:
           aws s3 cp s3://com.docvocate.localhost/dbdump/EnterpriseAppealioDump.sql EnterpriseAppealioDump.sql
 
       - name: Connect to PostgreSQL and Dump SQL File
+        env:
+          POSTGRES_PASSWORD: postgres
         run: |
-          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U postgres -d mydatabase -c "CREATE TABLE example (id serial primary key, name varchar(100));"
-          PGPASSWORD=$POSTGRES_PASSWORD pg_dump -h localhost -U postgres -d mydatabase -t example > dump.sql
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -h localhost -U postgres mydatabase -c "CREATE TABLE example (id serial primary key, name varchar(100));"
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} pg_dump -h localhost -U postgres mydatabase -t example > dump.sql
 
       - name: Print SQL Dump
         run: cat dump.sql
