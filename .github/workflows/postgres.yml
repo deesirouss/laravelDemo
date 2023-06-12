@@ -35,31 +35,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Login to AWS
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Download sql file
-        run: |
-          sudo apt update -y
-          sudo apt install awscli
-          aws s3 cp s3://com.docvocate.localhost/dbdump/EnterpriseAppealioDump.sql EnterpriseAppealioDump.sql
-
       - name: Connect to PostgreSQL and Dump SQL File
         env:
           POSTGRES_PASSWORD: postgres
         run: |
-          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -h localhost -U postgres mydatabase -c "CREATE TABLE example (id serial primary key, name varchar(100));"
-          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} pg_dump -h localhost -U postgres mydatabase -t example > dump.sql
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -h localhost -U postgres -d mydatabase -c "CREATE TABLE example (id serial primary key, name varchar(100));"
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} pg_dump -h localhost -U postgres -d mydatabase -t example > dump.sql
 
       - name: Print SQL Dump
         run: cat dump.sql
-
-      - name: Print Enterprise SQL Dump
-        run: cat EnterpriseAppealioDump.sql
-
-      - name: Delete SQL Dump
-        run: rm EnterpriseAppealioDump.sql
